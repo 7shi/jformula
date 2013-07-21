@@ -43,22 +43,22 @@ public class JFormula {
             System.out.println("f4a: " + f4b);
 
             // f5 = x + 2 + 3*x + 4
-            Add f5 = x().add(2).add(x(3)).add(4);
-            System.out.println("f5: " + f5);
+            Add f5a = x().add(2).add(x(3)).add(4);
+            System.out.println("f5a: " + f5a);
 
             // x^2 + 2*x + 3 + 4*x + 5*x^2 + 6;
-            Add f6 = x(1, 2).add(x(2)).add(3).add(x(4)).add(x(5, 2)).add(6);
-            System.out.println("f6: " + f6);
+            Add f6a = x(1, 2).add(x(2)).add(3).add(x(4)).add(x(5, 2)).add(6);
+            System.out.println("f6a: " + f6a);
 
-            f5.sort();
-            f6.sort();
-            System.out.println("f5: " + f5);
-            System.out.println("f6: " + f6);
+            Add f5b = f5a.sort();
+            Add f6b = f6a.sort();
+            System.out.println("f5b: " + f5b);
+            System.out.println("f6b: " + f6b);
 
-            f5.simplify();
-            f6.simplify();
-            System.out.println("f5: " + f5);
-            System.out.println("f6: " + f6);
+            f5a.simplify();
+            f6a.simplify();
+            System.out.println("f5a: " + f5a);
+            System.out.println("f6a: " + f6a);
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }

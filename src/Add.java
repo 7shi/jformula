@@ -46,8 +46,10 @@ public class Add extends Expr {
         return ret;
     }
 
-    public void sort() {
-        Collections.sort(list, new Comparator() {
+    public Add sort() {
+        Add ret = new Add();
+        ret.list.addAll(list);
+        Collections.sort(ret.list, new Comparator() {
             @Override
             public int compare(Object x, Object y) {
                 int xx = x instanceof Var ? ((Var) x).n : 0;
@@ -55,10 +57,24 @@ public class Add extends Expr {
                 return yy - xx;
             }
         });
+        return ret;
+    }
+
+    public int getMax() {
+        int max = 0;
+        for (Expr x : list) {
+            if (x instanceof Var) {
+                int n = ((Var) x).n;
+                if (max < n) {
+                    max = n;
+                }
+            }
+        }
+        return max;
     }
 
     public void simplify() {
-        sort();
+        this.list = sort().list;
         ArrayList<Expr> newlist = new ArrayList<>();
         Expr last = null;
         for (Expr x : list) {
