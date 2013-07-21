@@ -28,13 +28,9 @@ public class Mul extends Expr {
 
     @Override
     public int eval() throws Exception {
-        int ret = 0;
+        int ret = 1;
         for (Expr x : list) {
-            if (ret == 0) {
-                ret = x.eval();
-            } else {
-                ret *= x.eval();
-            }
+            ret *= x.eval();
         }
         return ret;
     }
