@@ -33,6 +33,19 @@ public class Add extends Expr {
         return ret;
     }
 
+    @Override
+    public Add add(int n) {
+        return add(new Value(n));
+    }
+
+    @Override
+    public Add add(Expr x) {
+        Add ret = new Add();
+        ret.list.addAll(list);
+        ret.list.add(x);
+        return ret;
+    }
+
     public void sort() {
         Collections.sort(list, new Comparator() {
             @Override
