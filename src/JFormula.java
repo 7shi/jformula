@@ -39,16 +39,15 @@ public class JFormula {
 
             Expr f4a = new Add(new Var(), new Value(1));
             System.out.println("f4a: " + f4a);
-            Var x = new Var();
-            Expr f4b = x.add(1);
+            Expr f4b = x().add(1);
             System.out.println("f4a: " + f4b);
 
             // f5 = x + 2 + 3*x + 4
-            Add f5 = x.add(2).add(x.mul(3)).add(4);
+            Add f5 = x().add(2).add(x(3)).add(4);
             System.out.println("f5: " + f5);
 
             // x^2 + 2*x + 3 + 4*x + 5*x^2 + 6;
-            Add f6 = x.pow(2).add(x.mul(2)).add(3).add(x.mul(4)).add(x.mul(5).pow(2)).add(6);
+            Add f6 = x(1, 2).add(x(2)).add(3).add(x(4)).add(x(5, 2)).add(6);
             System.out.println("f6: " + f6);
 
             f5.sort();
@@ -63,5 +62,17 @@ public class JFormula {
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
+    }
+
+    public static Var x() {
+        return new Var();
+    }
+
+    public static Var x(int a) {
+        return new Var(a, 1);
+    }
+
+    public static Var x(int a, int n) {
+        return new Var(a, n);
     }
 }
