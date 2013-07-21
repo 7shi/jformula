@@ -22,12 +22,4 @@ public class Var extends Expr {
     public int eval() throws Exception {
         throw new Exception();
     }
-
-    public Var mul(int a) {
-        return new Var(a, n);
-    }
-    
-    public Var pow(int n) {
-        return new Var(a, n);
-    }
 }
