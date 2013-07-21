@@ -5,13 +5,13 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Add extends Expr {
-
+    
     public ArrayList<Expr> list = new ArrayList<>();
-
+    
     public Add(Expr... args) {
         list.addAll(Arrays.asList(args));
     }
-
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -23,7 +23,7 @@ public class Add extends Expr {
         }
         return sb.toString();
     }
-
+    
     @Override
     public int eval() throws Exception {
         int ret = 0;
@@ -32,12 +32,12 @@ public class Add extends Expr {
         }
         return ret;
     }
-
+    
     @Override
     public Add add(int n) {
         return add(new Value(n));
     }
-
+    
     @Override
     public Add add(Expr x) {
         Add ret = new Add();
@@ -45,7 +45,7 @@ public class Add extends Expr {
         ret.list.add(x);
         return ret;
     }
-
+    
     public Add sort() {
         Add ret = new Add();
         ret.list.addAll(list);
@@ -59,7 +59,7 @@ public class Add extends Expr {
         });
         return ret;
     }
-
+    
     public int getMax() {
         int max = 0;
         for (Expr x : list) {
@@ -72,30 +72,27 @@ public class Add extends Expr {
         }
         return max;
     }
-
-    public void simplify() {
-        this.list = sort().list;
-        ArrayList<Expr> newlist = new ArrayList<>();
-        Expr last = null;
+    
+    public Add simplify() {
+        Add ret = new Add();
+        ArrayList<Expr> etc = new ArrayList<>();
+        int max = getMax();
+        int[] as = new int[max + 1];
         for (Expr x : list) {
-            if (last == null) {
-                last = x;
-            } else if (last instanceof Value && x instanceof Value) {
-                last = new Value(((Value) last).n + ((Value) x).n);
+            if (x instanceof Var) {
+                Var vx = (Var) x;
+                as[vx.n] += vx.a;
+            } else if (x instanceof Value) {
+                as[0] += ((Value) x).n;
             } else {
-                Var v1 = last instanceof Var ? (Var) last : null;
-                Var v2 = x instanceof Var ? (Var) x : null;
-                if (v1 != null && v2 != null && v1.n == v2.n) {
-                    last = new Var(v1.a + v2.a, v1.n);
-                } else {
-                    newlist.add(last);
-                    last = x;
-                }
+                etc.add(x);
             }
         }
-        if (last != null) {
-            newlist.add(last);
+        for (int n = max; n >= 1; n--) {
+            ret.list.add(new Var(as[n], n));
         }
-        list = newlist;
+        ret.list.add(new Value(as[0]));
+        ret.list.addAll(etc);
+        return ret;
     }
 }

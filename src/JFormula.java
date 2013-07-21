@@ -55,10 +55,10 @@ public class JFormula {
             System.out.println("f5b: " + f5b);
             System.out.println("f6b: " + f6b);
 
-            f5a.simplify();
-            f6a.simplify();
-            System.out.println("f5a: " + f5a);
-            System.out.println("f6a: " + f6a);
+            Add f5c = f5a.simplify();
+            Add f6c = f6a.simplify();
+            System.out.println("f5c: " + f5c);
+            System.out.println("f6c: " + f6c);
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
