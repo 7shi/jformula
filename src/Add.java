@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -8,13 +9,7 @@ public class Add extends Expr {
     public ArrayList<Expr> list = new ArrayList<>();
 
     public Add(Expr... args) {
-        for (Expr x : args) {
-            if (x instanceof Add) {
-                list.addAll(((Add) x).list);
-            } else {
-                list.add(x);
-            }
-        }
+        list.addAll(Arrays.asList(args));
     }
 
     @Override

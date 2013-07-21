@@ -1,18 +1,13 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Mul extends Expr {
 
     public ArrayList<Expr> list = new ArrayList<>();
 
     public Mul(Expr... args) {
-        for (Expr x : args) {
-            if (x instanceof Mul) {
-                list.addAll(((Mul) x).list);
-            } else {
-                list.add(x);
-            }
-        }
+        list.addAll(Arrays.asList(args));
     }
 
     @Override
