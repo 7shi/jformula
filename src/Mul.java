@@ -18,7 +18,7 @@ public class Mul extends Expr {
                 sb.append("*");
             }
             if (x instanceof Add) {
-                sb.append("(" + x + ")");
+                sb.append("(").append(x).append(")");
             } else {
                 sb.append(x);
             }
